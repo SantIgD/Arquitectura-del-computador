@@ -9,7 +9,7 @@
 
     Si el bit b del entero n es 1, retorna 1 sino 0.
 */
-int is_one(unsigned long n, int b){
+int is_one(unsigned long long n, int b){
     
     n = n >> b; // Dejamos en la posicion 0 el bit numero b
     n = n & 1;  // Mascara que deja prendido solo el bit numero 0
@@ -17,27 +17,32 @@ int is_one(unsigned long n, int b){
     return n;
 }
 
-void print_bin(unsigned long n){
+/*
+    print_bin :: unsigned long long -> void
+    
+    Convierte un entero sin signo de 64 bits a binario
+*/
 
-    printf("El numero %d en binario 64 bits es: \n",n);
+void print_bin(unsigned long long n){
+
+    printf("El numero %llu en binario 64 bits es: \n",n);
 
     for (int i=0; i < 64; i++){
-        if (i%8 == 0){
+        if (i%8 == 0){          // Espacio cada 1 byte
             printf(" ");
         }
         
-        printf("%d",is_one(n,63-i));
-
-        
+        printf("%d",is_one(n,63-i));  // Mostramos el bit en la posicion 63-i, ya que en pantalla
+                                      // lo generamos de izquierda a derecha      
     }
 
 }
 
 int main() {
 
-    unsigned long numero;
+    unsigned long long numero;
     printf("Ingrese el numero a convertir: ");
-    scanf("%ul",&numero);
+    scanf("%llu",&numero);
 
     print_bin(numero);
     
