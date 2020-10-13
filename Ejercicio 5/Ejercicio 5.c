@@ -5,9 +5,10 @@
 #define longitud 200
 
 /*
-    codificar_decodificar : int, char* -> void
-    Recibe la clave y la palabra a codificar/decodificar ya que 
-    por propiedad de xor, (a xor b) xor b = a. 
+    codificar_decodificar :: int->char* -> void
+
+    Recibe una clave y una palabra a codificar/decodificar utilizando
+    XOR(^) y sus propiedades
 */
 
 void codificar_decodificar(int clave,char* palabra){
@@ -29,11 +30,29 @@ int main(int argc, char *argv[]) {
     printf("Ingrese la palabra a codificar: ");
     scanf("%[^\n]",&palabra);
 
+    //Codificamos la palabra
     codificar_decodificar(clave,palabra);
     printf("La palabra con la clave es: %s", &palabra);
 
+    //Decodificamos la palabra
     codificar_decodificar(clave,palabra);
     printf("\nLa palabra decodificada: %s", &palabra);
 
     return 0;
 }
+
+/*
+
+Primer pregunta:
+
+No sería necesaria ninguna modificación la función es capaz tanto de 
+codificar como de decodificar.
+
+Segunda pregunta:
+
+Utilizando diferentes claves la palabra se ira codificando cada vez más
+ganando una codificación más profunda. Y que para decodificarla bastaría 
+con volver a aplicar las claves utilizadas (en este caso no importa el orden 
+ya que XOR tiene propiedades conmutativas y asociativas).
+
+*/

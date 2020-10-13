@@ -2,12 +2,12 @@
 
 
 /*
-    is_one :: long, int -> int
+    is_one :: long int->int -> int
     
-    Indica si el bit b del entero n es 1 o 0, teniendo en cuenta
+    Indica si el bit b-ésimo del entero n es 1 o 0, teniendo en cuenta
     que el bit 0 corresponde a b_0 .
 
-    Si el bit b del entero n es 1, retorna 1 sino 0.
+    Si el bit b-ésimo del entero n es 1, retorna 1 sino 0.
 */
 int is_one(unsigned long long n, int b){
     
@@ -20,7 +20,7 @@ int is_one(unsigned long long n, int b){
 /*
     print_bin :: unsigned long long -> void
     
-    Convierte un entero sin signo de 64 bits a binario
+    Imprime un entero sin signo de 64 bits en binario
 */
 
 void print_bin(unsigned long long n){

@@ -1,7 +1,14 @@
 #include <stdio.h>
 
 
+/*
+    intercambiar_valores :: int->int->int -> void
+    
+    Toma tres valores enteros a,b y c , y intercambia sus valores.
+    De modo que quedan de la siguiente manera:valor de a se encuentre en 
+    b, el valor de b en c y el de c en a.
 
+*/
 
 void intercambiar_valores(int a, int b, int c){
     
