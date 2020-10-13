@@ -2,12 +2,12 @@
 
 
 /*
-    is_one :: long, int -> int
+    is_one :: long int ->int-> int
     
-    Indica si el bit b del entero n es 1 o 0, teniendo en cuenta
+    Indica si el bit b-ésimo del entero n es 1 o 0, teniendo en cuenta
     que el bit 0 corresponde a b_0 .
 
-    Si el bit b del entero n es 1, retorna 1 sino 0.
+    Si el bit b-ésimo del entero n es 1, retorna 1 sino 0.
 */
 int is_one(long n, int b){
     
