@@ -1,3 +1,4 @@
 int main(){
-    return 0xFF;
+    char a = 0xFF;
+    return a;
 }

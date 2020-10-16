@@ -1,6 +1,7 @@
 int main(){
-    int a = 0xFE;
-    int b = -1;
+    char a = 0xFE;
+    char b = -1;
+    a = a-b;
     b+=1;
-    return a-b;
+    return a;
 }
