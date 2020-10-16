@@ -1,13 +1,11 @@
 Arquitectura-del-computador
 
 
-1) Preguntar por equivalencia en c ejercicio 1
+Informe acerca de la entrega:
 
-2) Formular respuesta, screenshots en whatsapp
- 
+	[a] En el pdf se encuentra la solución al ejercicio 2 y 3b
 
-4) PREGUNTAR POR AND, ANDL NO ESTA OPERANDO CON 32 BITS, SINO CON MAS.
-4) Revisar
+	[b] El ejercicio 3a fue resuelto en un solo programa de assembler, para facilitar el debugging con gdb
 
-
-5) Que pasa si para calcular el factorial, ingresamos un numero cuyo factorial no pueda representarse con 32 bits
+	[c] En el ejercicio 1 utilizamos char en el programa de c ya que en c char representa 8bits y en assembler
+		trabajaban con subregistro "?b" (de 8 bits)	
