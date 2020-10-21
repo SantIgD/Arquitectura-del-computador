@@ -1,56 +1,57 @@
 .data 
-    format: .asciz "%ld\n"
+    formato: .asciz "%ld\n" #ld => decimal en 64 bits //  p "%p\n",&formato: imprime dir de formato
     i: .quad 0xDEADBEEF
-    format2: .asciz "%lx\n"
+    formato2: .asciz "%lx\n"
 .text
 .global main
 
     main:
-        movq $format, %rdi # El primer argumento es el formato.
+        movq $formato, %rdi # El primer argumento es el formato.
         movq $1234, %rsi # El valor a imprimir.
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
 
-## item a
-        movq $format, %rdi # El primer argumento es el formato.
-        movq %rsp, %rsi # El valor a imprimir.
+## item a, valor del registro rsp (chorro de bits en rsp - por ser rsp, este chorro de bits representa la direccion del tope la pila -)
+        movq $formato, %rdi # El primer argumento es el formato.
+        movq %rsp, %rsi # El valor a imprimir. Guardamos en rsi el chorro de bits que hay en rsp
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
         
 ## item b
-        movq $format, %rdi # El primer argumento es el formato.
-        movq $format, %rsi # El valor a imprimir. Direccion
+        movq $formato, %rdi # El primer argumento es el formato.
+        movq $formato, %rsi # El valor a imprimir. Direccion
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
 ## item c
-        movq $format2, %rdi # El primer argumento es el formato.
-        movq $format, %rsi # El valor a imprimir. DIreccion
+        movq $formato2, %rdi # El primer argumento es el formato.
+        movq $formato, %rsi # El valor a imprimir. DIreccion
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
 
-## item d
-        movq $format2, %rdi # El primer argumento es el formato.
+## item d, acceder al valor que apunta el tope de la pila.
+        movq $formato, %rdi # El primer argumento es el formato.
         movq (%rsp), %rsi # El valor a imprimir.
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
 
 
 ## item e
-        movq $format2, %rdi # El primer argumento es el formato.
+        movq $formato, %rdi # El primer argumento es el formato.
         movq 8(%rsp), %rsi # El valor a imprimir.
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
 
 ## item f
-        movq $format, %rdi # El primer argumento es el formato.
+        movq $formato, %rdi # El primer argumento es el formato.
         movq i, %rsi # El valor a imprimir. #copiamos el valor de i
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
 
 ## item g
-        movq $format2, %rdi # El primer argumento es el formato.
+        movq $formato, %rdi # El primer argumento es el formato.
         movq $i, %rsi # El valor a imprimir. #copiamos el valor de i. DIreccion de memoria de i
         xorq %rax, %rax # Cantidad de valores de punto flotante.
         call printf
+
 
         ret
