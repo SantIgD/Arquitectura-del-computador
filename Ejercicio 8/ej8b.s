@@ -17,7 +17,7 @@ compara:
 
 
 buscar_0x00_larga:
-    #retorna 0 si las cadenas son iguales en los primeros %edx caracteres
+    #retorna 0 si las cadenas son iguales en los ultimos %edx caracteres
     #retorna 1 si son distintas
 
 
