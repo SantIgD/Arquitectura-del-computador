@@ -5,7 +5,7 @@ cadena: .asciz "123456"
 
 main:
 	movq $cadena, %rdi
-	movb $'0',%sil #Probar luego con diferentes valores (1,a,5....)
+	movb $'1',%sil #Probar luego con diferentes valores (1,a,5....)
     
 
 # si el char esta en la cadena en rax queda 
@@ -15,16 +15,16 @@ main:
 .global busca
 busca:
     xorq %rcx,%rcx
+    xorq %r8,%r8   
     xorq %rax,%rax
-    xorq %r8,%r8
-    decq %rax
+    decq %rax                # por defecto colocamos rax en -1
 
 bucle:
     movq (%rcx,%rdi,1),%r8
-    cmp $0x00,%r8b
-    jz fin
+    cmp $0x00,%r8b           # Comparamos con el caracter de fin de string (No se encontro)
+    jz no_encontrado                  
 
-    cmp %r8b,%sil
+    cmp %r8b,%sil            # Comparamos con el caracter que estamos interesados en encontrar
     jz encontrado
 
     
@@ -32,9 +32,9 @@ bucle:
     jmp bucle
 	
 encontrado:
-    addq %rdi,%rcx
+    addq %rdi,%rcx           # en rcx queda almacenada la direccion del caracter encontrado 
     movq %rcx,%rax    
-fin:
+no_encontrado:
     ret
 
 
