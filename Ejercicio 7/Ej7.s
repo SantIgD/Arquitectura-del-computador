@@ -4,8 +4,8 @@
 main:
 
 #a
-    movq $0x123456789ABCDEF,%rax
-    rolq $32 , %rax
+    movq $0x123456789ABCDEF,%rax 
+    rolq $32 , %rax		   # Intercambiamos los 32 bits mas significativos por los menos =>  0x89ABCDEF01234567
     
 #b
     movq $0x123456789abcdef, %rax # Copiamos en rax el numero a verificar la cantidad de 1's
