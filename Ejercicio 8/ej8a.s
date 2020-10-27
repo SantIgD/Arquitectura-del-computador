@@ -16,13 +16,13 @@ main:
 busca:
     xorq %rcx,%rcx
     xorq %rax,%rax
-    decq %rax                # por defecto colocamos rax en -1
+    decq %rax          # por defecto colocamos rax en -1
 
 bucle:
-    cmp $0x00,(%rcx,%rdi,1)           # Comparamos con el caracter de fin de string (No se encontro)
-    jz no_encontrado                  
+    cmpb $0x00,(%rcx,%rdi,1)   # Comparamos con el caracter de fin de string 
+    jz no_encontrado           # El caracter no pertenece a la cadena almacenada     
 
-    cmp (%rcx,%rdi,1),%sil            # Comparamos con el caracter que estamos interesados en encontrar
+    cmpb (%rcx,%rdi,1),%sil    # Comparamos con el caracter que estamos interesados en encontrar
     jz encontrado
 
     
@@ -30,7 +30,7 @@ bucle:
     jmp bucle
 	
 encontrado:
-    addq %rdi,%rcx           # en rcx queda almacenada la direccion del caracter encontrado 
+    addq %rdi,%rcx     # en rcx queda almacenada la direccion del caracter encontrado 
     movq %rcx,%rax    
 no_encontrado:
     ret
