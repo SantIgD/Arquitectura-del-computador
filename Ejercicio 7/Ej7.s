@@ -26,7 +26,7 @@ main:
 
     es_0:
        rorq $1 ,%rax
-    loop for_body
+    loop for_body     # La respuesta quedo almacenada en r9 
 
 
 # Alternativa utilizando carryflag (por comportamiento del ror/rol)
