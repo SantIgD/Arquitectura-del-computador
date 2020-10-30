@@ -1,17 +1,9 @@
 #include <stdio.h>
+/*   
+Los argumentos a, c y e están en los registros RDI , RDX y R8 respectivamente , y estos ocupan 4, 4 y 8 Bytes en memoria respectivamente
+Los argumentos b, d y f están en los registros RSI , RCX y R9 respectivamente , y estos ocupan 4 Bytes en memoria 
+Los argumentos g y h se almacenan en la pila ocupando 8 Bytes en memoria
 
-/*    UBICACION                     ESPACIO
-    7FFDE5413084: f  (short f)     -> 2 Bytes  
-    7FFDE5413088: d  (long d)      -> 4 Bytes
-    7FFDE5413090: e  (char e)      -> 1 Bytes
-    7FFDE5413094: c  (char c)      -> 1 Bytes
-    7FFDE5413098: b  (int b)       -> 2 Bytes
-    7FFDE541309C: a  (int a)       -> 2 Bytes 
-    7FFDE54130B0: g  (int g)       -> 2 Bytes
-    7FFDE54130B8: h  (int h)       -> 2 Bytes
-    7FFDE54130C8: Tope de pila
-
-          TOPE DE PILA otra compilacion = 7fffffffdc68
 */
 
 int f(char a, int b, char c, long d,
