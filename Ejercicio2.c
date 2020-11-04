@@ -49,13 +49,12 @@ int printear_tipo(char tipo, va_list l){
 }   
 
 void miniprintf (char* tipos, ...){
-    int cant = strlen(tipos);
     int contError=0;
     va_list l;
 
     printf("La cadena es: ");
 
-    va_start (l,cant);
+    va_start (l,tipos);  // Es a partir de que argumento se contabilizan los variables para la lista.
     for (;*tipos;tipos++){
         char tipoActual= tipos[0];
         
