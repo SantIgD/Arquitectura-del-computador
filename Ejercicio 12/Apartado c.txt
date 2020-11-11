@@ -1,0 +1,3 @@
+La diferencia de bytes entre las funciones en la pila no es de
+4096 exacto ya que las funciones son distintas y tienen un distinto
+uso de la pila.
