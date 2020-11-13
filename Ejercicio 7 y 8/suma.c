@@ -36,20 +36,20 @@ int main(){
     printf("}\n------------------------------------\n  a={");
 
     clock_gettime(CLOCK_REALTIME, &start);
-    sum(a,b,len);
+    sum_simd(a,b,len);
     clock_gettime(CLOCK_REALTIME, &finish);
 
     for(i=0;i<(len-1);i++){
 
          printf("%.2f,",a[i]);
     }
-    long double  accum = ( finish.tv_sec - start.tv_sec )
-                + ( finish.tv_nsec - start.tv_nsec ) * pow(10,-9);
     printf("%.2f",a[(len-1)]);
     printf("}\n\n");
-    printf("El proceso tardo %Lf segs\n",accum);
 
+    double  accum = ( finish.tv_sec - start.tv_sec )
+                + ( finish.tv_nsec - start.tv_nsec ) * pow(10,-9);
     
+    printf("El proceso tardo %.9f segs\n",accum);
    
     return 0;
 }
