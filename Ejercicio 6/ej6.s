@@ -2,14 +2,14 @@
 NaN : .float 
 
 .text
-.global main
+.global resolver_matriz_2x2
 
 filtrar_no_numeros:  # Si alguno es +-inf o NaN, retornar -1
 
 
 filtrar_ceros:
 
-main:
+resolver_matriz_2x2:
 
  # Suponemos que los coeficientes y el vector de salida tienen componentes distintas a NaN o +- inf
     #rdi x
