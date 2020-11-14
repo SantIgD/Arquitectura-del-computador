@@ -63,26 +63,36 @@ int main(){
     float e[longitud];
 
     struct timespec tiSum,tfSum,tiSumSimd,tfSumSimd;
-    generar_arreglo(d);
-    generar_arreglo(e);
+    double  tiempoSum=0;
+    double tiempoSumSimd=0; 
 
-    clock_gettime(CLOCK_REALTIME, &tiSum);
-    sum(d,e,longitud);
-    clock_gettime(CLOCK_REALTIME, &tfSum);
+    for(int j = 0; j < 1000; j++){
 
-    generar_arreglo(d);
+      generar_arreglo(d);
+      generar_arreglo(e);
 
-    clock_gettime(CLOCK_REALTIME, &tiSumSimd);
-    sum_simd(d,e,longitud);
-    clock_gettime(CLOCK_REALTIME, &tfSumSimd);
+      clock_gettime(CLOCK_REALTIME, &tiSum);
+      sum(d,e,longitud);
+      clock_gettime(CLOCK_REALTIME, &tfSum);
 
+      generar_arreglo(d);
 
+      clock_gettime(CLOCK_REALTIME, &tiSumSimd);
+      sum_simd(d,e,longitud);
+      clock_gettime(CLOCK_REALTIME, &tfSumSimd);
 
-    double  tiempoSum = ( tfSum.tv_sec - tiSum.tv_sec )
+      tiempoSum += ( tfSum.tv_sec - tiSum.tv_sec )
                 + ( tfSum.tv_nsec - tiSum.tv_nsec ) * pow(10,-9);
 
-    double  tiempoSumSimd = ( tfSumSimd.tv_sec - tiSumSimd.tv_sec )
+      tiempoSumSimd += ( tfSumSimd.tv_sec - tiSumSimd.tv_sec )
                 + ( tfSumSimd.tv_nsec - tiSumSimd.tv_nsec ) * pow(10,-9);
+    
+
+    }
+    
+
+
+
     
     printf("\n\nEl proceso tardo:\n [sum]: %.9f segundos\n [sumSimd]: %.9f segundos\n\n"
     ,tiempoSum,tiempoSumSimd);
