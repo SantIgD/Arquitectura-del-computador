@@ -177,8 +177,8 @@ if_case_7:
 
 case_1: # todos los coeficientes distintos de 0
 
-        #y = (f-(cd)/a) 1/(e-(bd)/a)
-        #x = (c-by)1/a
+        #y = (f-(cd)/a) * 1/(e-(bd)/a)
+        #x = (c-by) * 1/a
         jmp verificar_respuestas
 
 case_2: # a=0, b!=0, d!=0, e!=0
@@ -219,9 +219,14 @@ case_7: # a!=0, b=0, d=0, e!=0
 verificar_respuestas:
     # Verificar si en x o en y tenemos NaN o +-inf
 
+    xorq %rax,%rax
+    #poner en x e y las respuestas
+    jmp fin
+
 singular:
       xorq %rax,%rax
       decq %rax
+      jmp fin
 
 fin:
     ret
