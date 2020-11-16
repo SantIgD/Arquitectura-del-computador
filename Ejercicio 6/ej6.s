@@ -178,87 +178,166 @@ case_1: # todos los coeficientes distintos de 0
 
         #y = (f-(cd)/a) * 1/(e-(bd)/a)
         #x = (c-by) * 1/a
-        movq $1,%rax
+
+
+        #xmm11 = (e-(bd)/a)
+        movss %xmm3,%xmm11              # => xmm11 = d
+        mulss %xmm1,%xmm11              # => b*d
+        divss %xmm0,%xmm11              # => (bd)/a
+        subss %xmm4,%xmm11              # => (bd)/a - e
+        mulss %xmm7,%xmm11              # => d - (bd)/a
+
+        #xmm10 = (f-(cd)/a)
+        movss %xmm3,%xmm10              # => xmm10 = d
+        mulss %xmm2,%xmm10              # => c*d
+        divss %xmm0,%xmm10              # => (cd)/a
+        subss %xmm5,%xmm10              # => (cd)/a - f
+        mulss %xmm7,%xmm10              # => f - (cd)/a
+
+        # xmm10 = y = (f-(cd)/a) * 1/(e-(bd)/a)
+        divss %xmm11,%xmm10            
+
+        # xmm9 = x = (c-by) * 1/a
+        movss %xmm10,%xmm9              # => xmm9 = y
+        mulss %xmm1,%xmm9               # => by
+        subss %xmm2,%xmm9               # => by - c
+        mulss %xmm7,%xmm9               # => c - by
+        divss %xmm0,%xmm9               # => (c-by) * 1/a
+
+
         jmp verificar_respuestas
 
 case_2: # a=0, b!=0, d!=0, e!=0
 
         # y = c/b
         # x = (f - (ec)/b) 1/d
-        movq $2,%rax
+
+
+        # xmm10 = y = c/b
+        movss %xmm2,%xmm10
+        divss %xmm1,%xmm10 
+
+        # xmm9 = x = (f - (ec)/b) 1/d
+        movss %xmm10,%xmm9       
+        mulss %xmm4,%xmm9
+        subss %xmm2,%xmm9 # => xmm9 = ((ec)/b - f)           
+        mulss %xmm7,%xmm9 # => xmm7 = (-1) => xmm9 = (f - (ec)/b)
+        divss %xmm3,%xmm9 # => xmm9 = (f - (ec)/b) 1/d
+
+
         jmp verificar_respuestas
 
 case_3: # a!=0, b=0, d!=0, e!=0
 
         # x = c/a
         # y = (f - (dc)/a) 1/e
-        movq $3,%rax
+
+
+        # xmm9 = x = c/a 
+        movss %xmm2,%xmm9
+        divss %xmm0,%xmm9 
+
+        # xmm10 = y = (f - (dc)/a) 1/e
+        movss %xmm10,%xmm10       
+        mulss %xmm3,%xmm10
+        subss %xmm5,%xmm10 # => xmm9 = ((dc)/a - f)               
+        mulss %xmm7,%xmm10 # => xmm7 = (-1) => xmm9 = (f - (dc)/a)
+        divss %xmm4,%xmm10 # => xmm9 = (f - (dc)/a) 1/e
+
         jmp verificar_respuestas
 
 case_4: # a!=0, b!=0, d=0, e!=0
-
+        
         # y = f/e
         # x = (c - (bf)/e) 1/a
-        movq $4,%rax
+        
+        # xmm10 = y = f/e
+        movss %xmm5,%xmm10
+        divss %xmm4,%xmm10 
+        
+        # xmm9 = x = (c - (bf)/e) 1/a
+        movss %xmm10,%xmm9       
+        mulss %xmm1,%xmm9
+        subss %xmm2,%xmm9 # => xmm9 = ((bf)/e - c)               
+        mulss %xmm7,%xmm9 # => xmm7 = (-1) => xmm9 = (c - (bf)/e)
+        divss %xmm0,%xmm9 # => xmm9 = (c - (bf)/e) 1/a
+        
         jmp verificar_respuestas
 
 case_5: # a!=0, b!=0, d!=0, e=0
-        #xmm0 a
-    #xmm1 b
-    #xmm2 c
-    #xmm3 d
-    #xmm4 e
-    #xmm5 f
-
+   
         # x = f/d
         # y = (c - (af)/d) 1/b
 
-        # xmm10 = x = f/d 
-        movss %xmm5,%xmm10
-        divss %xmm3,%xmm10 
+        # xmm9 = x = f/d 
+        movss %xmm5,%xmm9
+        divss %xmm3,%xmm9 
 
+        # xmm10 = y = (c - (af)/d) 1/b
+        movss %xmm10,%xmm10       
+        mulss %xmm0,%xmm10
+        subss %xmm2,%xmm10 # => xmm10 = ((af)/d - c)               
+        mulss %xmm7,%xmm10 # => xmm7 = (-1) => xmm9 = (c - (af)/d)
+        divss %xmm1,%xmm10 # => xmm10 = (c - (af)/d) * 1/b
         
-
-        movq $5,%rax
         jmp verificar_respuestas
 
 case_6: # a=0, b!=0, d!=0, e=0  
 
-        # xmm9 = y = c/b 
-        movss %xmm2,%xmm9
-        divss %xmm1,%xmm9
+        # xmm10 = y = c/b 
+        movss %xmm2,%xmm10
+        divss %xmm1,%xmm10
         
-        # xmm10 = x = f/d
-        movss %xmm5,%xmm10
-        divss %xmm3,%xmm10
+        # xmm9 = x = f/d
+        movss %xmm5,%xmm9
+        divss %xmm3,%xmm9
         
-
-        movq $6,%rax
         jmp verificar_respuestas
 
 case_7: # a!=0, b=0, d=0, e!=0
 
-        # xmm9 = y = f/e
-        movss %xmm5,%xmm9
-        divss %xmm4,%xmm9
+        # xmm10 = y = f/e
+        movss %xmm5,%xmm10
+        divss %xmm4,%xmm10
 
-        # xmm10 = x = c/a
-        movss %xmm2,%xmm10
-        divss %xmm0,%xmm10
+        # xmm9 = x = c/a
+        movss %xmm2,%xmm9
+        divss %xmm0,%xmm9
 
         movq $7,%rax
 
 verificar_respuestas:
     # Verificar si en x o en y tenemos NaN o +-inf
+    
+    ucomiss %xmm10,%xmm10
+    jp singular
 
-    #xorq %rax,%rax
-    #poner en x e y las respuestas
-    jmp fin
+    ucomiss %xmm9,%xmm9
+    jp singular
+
+    movss   %xmm10,%xmm6  
+    pushq $continue_6
+    jmp filtrar_infinitos
+continue_6:
+
+    movss   %xmm9,%xmm6  
+    pushq $continue_7
+    jmp filtrar_infinitos
+continue_7:
+    
+    jmp no_singular
 
 singular:
 
-      xorq %rax,%rax
-      decq %rax
+    xorq %rax,%rax
+    decq %rax
+    jmp fin
+
+no_singular:
+    
+    xorq %rax,%rax
+    movss %xmm9 , (%rdi)
+    movss %xmm10 , (%rsi)
 
 fin:
     ret
