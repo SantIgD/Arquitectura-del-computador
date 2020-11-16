@@ -276,8 +276,10 @@ case_5: # a!=0, b!=0, d!=0, e=0
         # xmm10 = y = (c - (af)/d) 1/b
         movss %xmm10,%xmm10       
         mulss %xmm0,%xmm10
+        mulss %xmm7,%xmm10
+        mulss %xmm7,%xmm2
         subss %xmm2,%xmm10 # => xmm10 = ((af)/d - c)               
-        mulss %xmm7,%xmm10 # => xmm7 = (-1) => xmm9 = (c - (af)/d)
+        # => xmm7 = (-1) => xmm9 = (c - (af)/d)
         divss %xmm1,%xmm10 # => xmm10 = (c - (af)/d) * 1/b
         
         jmp verificar_respuestas
@@ -314,16 +316,16 @@ verificar_respuestas:
 
     ucomiss %xmm9,%xmm9
     jp singular
-
-    movss   %xmm10,%xmm6  
-    pushq $continue_6
+  
+    movss %xmm10,%xmm6  
+    pushq $continue_8
     jmp filtrar_infinitos
-continue_6:
+continue_8:
 
-    movss   %xmm9,%xmm6  
-    pushq $continue_7
+    movss %xmm9,%xmm6  
+    pushq $continue_9
     jmp filtrar_infinitos
-continue_7:
+continue_9:
     
     jmp no_singular
 
@@ -336,7 +338,7 @@ singular:
 no_singular:
     
     xorq %rax,%rax
-    movss %xmm9 , (%rdi)
+    movss %xmm9 ,(%rdi)
     movss %xmm10 , (%rsi)
 
 fin:
