@@ -1,9 +1,7 @@
 
 
 .text
-.global resolver_matriz_2x2
-
-        
+    
 
 filtrar_infinitos:
 
@@ -11,12 +9,14 @@ filtrar_infinitos:
         mulss   %xmm7,%xmm8  # 
         addss   %xmm6,%xmm8  # 
 
+        popq %rcx
+
         ucomiss %xmm8,%xmm8
-        jnz jmp singular
+        jp singular
 
-        pop %rax
-        jmp *rax
+        jmp *%rcx
 
+.global resolver_matriz_2x2 
 
 resolver_matriz_2x2:
 
@@ -36,52 +36,51 @@ resolver_matriz_2x2:
 
         xorq %r8,%r8
         decq %r8
-        cvtsi2ssq %r8,%xmm7 # xmm6 = -1
+        cvtsi2ssq %r8,%xmm7 # xmm7 = -1
 
 filtrar_no_numeros:  # Si alguno es +-inf o NaN, retornar -1
 
         ucomiss %xmm0,%xmm0
-        jnz jmp singular #  xmmi = NaN 
+        jp singular #  xmmi = NaN 
         
         ucomiss %xmm1,%xmm1
-        jnz jmp singular 
+        jp singular 
 
         ucomiss %xmm2,%xmm2
-        jnz jmp singular 
+        jp singular 
 
         ucomiss %xmm3,%xmm3
-        jnz jmp singular 
+        jp singular 
 
         ucomiss %xmm4,%xmm4
-        jnz jmp singular 
+        jp singular 
 
         ucomiss %xmm5,%xmm5
-        jnz jmp singular
+        jp singular
         
 #  => en las entradas no tengo ningun NaN
-
         movss   %xmm0,%xmm6  
-        push continue_0
+        pushq $continue_0
         jmp filtrar_infinitos
 continue_0:
         movss   %xmm1,%xmm6  
-        push continue_1
+        pushq $continue_1
         jmp filtrar_infinitos
 continue_1:
         movss   %xmm2,%xmm6  
-        push continue_2
+        pushq $continue_2
         jmp filtrar_infinitos
 continue_2:
         movss   %xmm3,%xmm6  
-        push continue_3
+        pushq $continue_3
         jmp filtrar_infinitos
 continue_3:
         movss   %xmm4,%xmm6  
-        push continue_4
+        pushq $continue_4
         jmp filtrar_infinitos
 continue_4:
         movss   %xmm5,%xmm6  
-        push continue_5
+        pushq $continue_5
         jmp filtrar_infinitos
 continue_5:
  
@@ -179,54 +178,87 @@ case_1: # todos los coeficientes distintos de 0
 
         #y = (f-(cd)/a) * 1/(e-(bd)/a)
         #x = (c-by) * 1/a
+        movq $1,%rax
         jmp verificar_respuestas
 
 case_2: # a=0, b!=0, d!=0, e!=0
 
         # y = c/b
         # x = (f - (ec)/b) 1/d
+        movq $2,%rax
         jmp verificar_respuestas
 
 case_3: # a!=0, b=0, d!=0, e!=0
 
         # x = c/a
         # y = (f - (dc)/a) 1/e
+        movq $3,%rax
         jmp verificar_respuestas
 
 case_4: # a!=0, b!=0, d=0, e!=0
 
         # y = f/e
         # x = (c - (bf)/e) 1/a
+        movq $4,%rax
         jmp verificar_respuestas
 
 case_5: # a!=0, b!=0, d!=0, e=0
+        #xmm0 a
+    #xmm1 b
+    #xmm2 c
+    #xmm3 d
+    #xmm4 e
+    #xmm5 f
 
         # x = f/d
         # y = (c - (af)/d) 1/b
+
+        # xmm10 = x = f/d 
+        movss %xmm5,%xmm10
+        divss %xmm3,%xmm10 
+
+        
+
+        movq $5,%rax
         jmp verificar_respuestas
 
-case_6: # a=0, b!=0, d!=0, e=0
+case_6: # a=0, b!=0, d!=0, e=0  
 
-        # y = c/b
-        # x = f/d
+        # xmm9 = y = c/b 
+        movss %xmm2,%xmm9
+        divss %xmm1,%xmm9
+        
+        # xmm10 = x = f/d
+        movss %xmm5,%xmm10
+        divss %xmm3,%xmm10
+        
+
+        movq $6,%rax
         jmp verificar_respuestas
 
 case_7: # a!=0, b=0, d=0, e!=0
 
-        # y = f/e
-        # x = c/a
+        # xmm9 = y = f/e
+        movss %xmm5,%xmm9
+        divss %xmm4,%xmm9
+
+        # xmm10 = x = c/a
+        movss %xmm2,%xmm10
+        divss %xmm0,%xmm10
+
+        movq $7,%rax
 
 verificar_respuestas:
     # Verificar si en x o en y tenemos NaN o +-inf
 
-    xorq %rax,%rax
+    #xorq %rax,%rax
     #poner en x e y las respuestas
     jmp fin
 
 singular:
+
       xorq %rax,%rax
       decq %rax
-      jmp fin
 
 fin:
     ret
