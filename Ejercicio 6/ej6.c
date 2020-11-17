@@ -6,16 +6,24 @@ int resolver_matriz_2x2(float* x,float* y ,float a,float b,float c,float d,float
 
 
 int main(){
-    int a;
+   int a;
 
-   if(testear()==0){
+   printf("Si desea ejecutar los test ingrese 1, sino cualquier tecla...");
+   scanf("%d",&a);
+
+   if(a==1){
+
+      if(testear()==0){
        // Funciona con los casos probados
        system("clear");
-       printf("El programa funciona con los casos previstos\n");
-   }else{
-       printf("\nEl programa no funciona con los casos previstos\n");
+       printf("El programa funciona correctamente con los casos previstos\n");
+      }else{
+       printf("\nEl programa no funciona correctamente con los casos previstos\n");
        return -1;
+      }
    }
+
+  
 
 
     return 0;
