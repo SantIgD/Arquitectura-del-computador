@@ -220,7 +220,7 @@ case_2: # a=0, b!=0, d!=0, e!=0
         # xmm9 = x = (f - (ec)/b) 1/d
         movss %xmm10,%xmm9       
         mulss %xmm4,%xmm9
-        subss %xmm2,%xmm9 # => xmm9 = ((ec)/b - f)           
+        subss %xmm5,%xmm9 # => xmm9 = ((ec)/b - f)           
         mulss %xmm7,%xmm9 # => xmm7 = (-1) => xmm9 = (f - (ec)/b)
         divss %xmm3,%xmm9 # => xmm9 = (f - (ec)/b) 1/d
 
@@ -238,7 +238,7 @@ case_3: # a!=0, b=0, d!=0, e!=0
         divss %xmm0,%xmm9 
 
         # xmm10 = y = (f - (dc)/a) 1/e
-        movss %xmm10,%xmm10       
+        movss %xmm9,%xmm10       
         mulss %xmm3,%xmm10
         subss %xmm5,%xmm10 # => xmm9 = ((dc)/a - f)               
         mulss %xmm7,%xmm10 # => xmm7 = (-1) => xmm9 = (f - (dc)/a)
@@ -274,7 +274,7 @@ case_5: # a!=0, b!=0, d!=0, e=0
         divss %xmm3,%xmm9 
 
         # xmm10 = y = (c - (af)/d) 1/b
-        movss %xmm10,%xmm10       
+        movss %xmm9,%xmm10       
         mulss %xmm0,%xmm10
         mulss %xmm7,%xmm10
         mulss %xmm7,%xmm2
