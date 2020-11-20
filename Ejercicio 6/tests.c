@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int resolver_matriz_2x2(float* x,float* y ,float a,float b,float c,float d,float e,float f);
+int solve(float* x,float* y ,float a,float b,float c,float d,float e,float f);
 
 int testear_NaN();
 
@@ -57,9 +57,9 @@ int testear_NaN(){
     float x;
     float y;
 
-    if (resolver_matriz_2x2(&x,&y,0.0/0.0,b,c,d,e,f) == -1 && resolver_matriz_2x2(&x,&y,a,0.0/0.0,c,d,e,f)== -1
-        && resolver_matriz_2x2(&x,&y,a,b,0.0/0.0,d,e,f)== -1 && resolver_matriz_2x2(&x,&y,a,b,c,0.0/0.0,e,f)== -1
-        && resolver_matriz_2x2(&x,&y,a,b,c,d,0.0/0.0,f)== -1 && resolver_matriz_2x2(&x,&y,a,b,c,d,e,0.0/0.0)== -1){
+    if (solve(&x,&y,0.0/0.0,b,c,d,e,f) == -1 && solve(&x,&y,a,0.0/0.0,c,d,e,f)== -1
+        && solve(&x,&y,a,b,0.0/0.0,d,e,f)== -1 && solve(&x,&y,a,b,c,0.0/0.0,e,f)== -1
+        && solve(&x,&y,a,b,c,d,0.0/0.0,f)== -1 && solve(&x,&y,a,b,c,d,e,0.0/0.0)== -1){
         
         printf("El programa filtra las entradas en NaN correctamente\n");
         return 0;
@@ -83,9 +83,9 @@ int testear_inf(){
     float x;
     float y;
 
-    if (resolver_matriz_2x2(&x,&y,1.0/0.0,b,c,d,e,f) == -1 && resolver_matriz_2x2(&x,&y,a,-1.0/0.0,c,d,e,f)== -1
-        && resolver_matriz_2x2(&x,&y,a,b,1.0/0.0,d,e,f)== -1 && resolver_matriz_2x2(&x,&y,a,b,c,-1.0/0.0,e,f)== -1
-        && resolver_matriz_2x2(&x,&y,a,b,c,d,1.0/0.0,f)== -1 && resolver_matriz_2x2(&x,&y,a,b,c,d,e,-1.0/0.0)== -1){
+    if (solve(&x,&y,1.0/0.0,b,c,d,e,f) == -1 && solve(&x,&y,a,-1.0/0.0,c,d,e,f)== -1
+        && solve(&x,&y,a,b,1.0/0.0,d,e,f)== -1 && solve(&x,&y,a,b,c,-1.0/0.0,e,f)== -1
+        && solve(&x,&y,a,b,c,d,1.0/0.0,f)== -1 && solve(&x,&y,a,b,c,d,e,-1.0/0.0)== -1){
         
         printf("El programa filtra las entradas en inf correctamente.\n");
         return 0;
@@ -110,7 +110,7 @@ int testear_casos(){
 
 
     printf("\nCaso 1:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0){
+    if(solve(&x,&y,a,b,c,d,e,f)==0){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -131,7 +131,7 @@ int testear_casos(){
     
 
     printf("\nCaso 2:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0 && x==4 && y==0){
+    if(solve(&x,&y,a,b,c,d,e,f)==0 && x==4 && y==0){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -152,7 +152,7 @@ int testear_casos(){
 
 
     printf("\nCaso 3:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0 && x==4 && y==5){
+    if(solve(&x,&y,a,b,c,d,e,f)==0 && x==4 && y==5){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -173,7 +173,7 @@ int testear_casos(){
 
 
     printf("\nCaso 4:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0 && x==1 && y==2){
+    if(solve(&x,&y,a,b,c,d,e,f)==0 && x==1 && y==2){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -194,7 +194,7 @@ int testear_casos(){
 
 
     printf("\nCaso 5:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0){
+    if(solve(&x,&y,a,b,c,d,e,f)==0){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -216,7 +216,7 @@ int testear_casos(){
 
 
     printf("\nCaso 6:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0){
+    if(solve(&x,&y,a,b,c,d,e,f)==0){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -238,7 +238,7 @@ int testear_casos(){
 
 
     printf("\nCaso 7:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==0){
+    if(solve(&x,&y,a,b,c,d,e,f)==0){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nFue solucionada correctamente\n",a,b,c,d,e,f);
         printf("\nLa respuesta fue: (x,y) = (%.2f,%.2f)\n",x,y);
     }else{
@@ -261,7 +261,7 @@ int testear_casos(){
 
 
     printf("\nCaso 8:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -282,7 +282,7 @@ int testear_casos(){
 
 
     printf("\nCaso 9:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -303,7 +303,7 @@ int testear_casos(){
 
 
     printf("\nCaso 10:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -324,7 +324,7 @@ int testear_casos(){
 
 
     printf("\nCaso 11:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -345,7 +345,7 @@ int testear_casos(){
 
 
     printf("\nCaso 12:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -366,7 +366,7 @@ int testear_casos(){
 
 
     printf("\nCaso 13:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -387,7 +387,7 @@ int testear_casos(){
 
 
     printf("\nCaso 14:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -408,7 +408,7 @@ int testear_casos(){
 
 
     printf("\nCaso 15:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);
@@ -429,7 +429,7 @@ int testear_casos(){
 
 
     printf("\nCaso 16:");
-    if(resolver_matriz_2x2(&x,&y,a,b,c,d,e,f)==-1){
+    if(solve(&x,&y,a,b,c,d,e,f)==-1){
         printf("\nLa matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nEs singular\n",a,b,c,d,e,f);
     }else{
         printf("\nLa matriz\n La matriz\n %.2f x + %.2f y = %.2f\n %.2f x + %.2f y = %.2f\nNo Fue solucionada correctamente\n",a,b,c,d,e,f);

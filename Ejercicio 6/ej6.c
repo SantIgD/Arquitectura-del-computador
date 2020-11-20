@@ -2,8 +2,7 @@
 #include "tests.c"
 #include <stdlib.h>
 
-int resolver_matriz_2x2(float* x,float* y ,float a,float b,float c,float d,float e,float f);
-
+int solve( float *x, float *y,float a, float b, float c, float d, float e, float f);
 
 int main(){
    int a;
@@ -23,13 +22,7 @@ int main(){
       }
    }
 
-  
-
-
-    return 0;
-
-
-        
+    return 0;     
 }
 
 

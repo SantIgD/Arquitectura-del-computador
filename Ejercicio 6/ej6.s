@@ -16,9 +16,9 @@ filtrar_infinitos:
 
         jmp *%rcx
 
-.global resolver_matriz_2x2 
+.global solve
 
-resolver_matriz_2x2:
+solve:
 
         # ax + by = c
         # dx + ey = f
