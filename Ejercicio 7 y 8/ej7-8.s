@@ -1,3 +1,7 @@
+.data 
+
+.align 16
+
 .text
 .global sum
 .global sum_simd

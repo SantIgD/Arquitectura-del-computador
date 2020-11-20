@@ -2,7 +2,8 @@
 #include <time.h>
 #include <sys/resource.h>
 #include <math.h>
-
+#include <stdlib.h>
+#include <unistd.h>
 float a[]={1.3,2.5,3.5,4.1,0.1};
 float b[]={1.3,2.0,3.5,4.0,0.34};     
 int len=5;
@@ -37,11 +38,29 @@ void generar_arreglo(float* arreglo){
 
 
 int main(){
-    
+    char c;
 
     //Ejercicio 7----------------------------------------------
 
-    printf("\nEl resultado de sumar los flotantes:\n\n  ");
+    printf("\nEl resultado de sumar los flotantes 1 a 1:\n\n  ");
+
+    print_arreglo(a,'a');
+
+    printf("+\n  ");
+
+    print_arreglo(b,'b');
+
+    printf("----------------------------------\n  ");
+
+    sum(a,b,len);
+    
+    print_arreglo(a,'a');
+
+    printf("\nIngrese una tecla para continuar \n");
+    
+    scanf("%c",&c);
+
+    printf("\nEl resultado de sumar los flotantes de a 4:\n\n  ");
 
     print_arreglo(a,'a');
 
@@ -54,10 +73,15 @@ int main(){
     sum_simd(a,b,len);
     
     print_arreglo(a,'a');
-
+    
+    printf("\nIngrese una tecla para continuar \n");
+    scanf("%*[^\n]%*c");  // limpia el buffer
+    scanf("%c",&c);
     //----------------------------------------------------------
 
     //Ejercicio 8-----------------------------------------------
+
+    printf("Comparacion en tiempo del calculo de la suma de arreglos de flotantes packed y 1 a 1\n");
 
     float d[longitud];
     float e[longitud];
@@ -66,7 +90,8 @@ int main(){
     double  tiempoSum=0;
     double tiempoSumSimd=0; 
 
-    for(int j = 0; j < 1000; j++){
+
+   for(int j = 0; j < 1000; j++){
 
       generar_arreglo(d);
       generar_arreglo(e);
@@ -91,11 +116,8 @@ int main(){
     }
     
 
-
-
     
     printf("\n\nEl proceso tardo:\n [sum]: %.9f segundos\n [sumSimd]: %.9f segundos\n\n"
     ,tiempoSum,tiempoSumSimd);
-   
     return 0;
 }
