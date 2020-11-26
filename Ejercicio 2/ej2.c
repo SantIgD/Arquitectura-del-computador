@@ -17,7 +17,7 @@ int my_isnan(float n){
 
 int my_isnan2(float n){
 
-    if(n == n){
+    if(n == n){ // Al saber que la comparacion con NaN siempre es false, la unica forma de que entremos al else es que n=NaN
         return 0;
     }else{
         return 1;
@@ -40,18 +40,22 @@ int main(void){
         printf("isNaN/my_isnan/my_isnan2 dicen que si\n");
         }
 
+// Apartado c)
     if (b == INFINITY){
-        printf("Es infinito\n\n");  // Entra aqui, por lo tanto no ocurre lo mismo
+        printf("Es infinito\n\n");  // Entra aqui, por lo tanto no ocurre lo mismo que en NaN
+    }
+    
+    if ((g-b) == -INFINITY){
+        printf("\nEs menos infinito\n\n");  // Entra aqui, por lo tanto no ocurre lo mismo
     }
 
+// Apartado d)
     printf("Calculando con infinitos\n\nInfinito + 0 = %f\n",b+g);
     printf("Infinito - 10.0 = %f\n",b+(-10.0)); // Sumar un numero positivo/negativo a +infinito 
     printf("0 - Infinito = %f\n",-b+g);         // devuelve +infinito
     printf("100 - Infinito = %f\n",-b+100.0);
 
-    if ((g-b) == -INFINITY){
-        printf("\nEs menos infinito\n\n");  // Entra aqui, por lo tanto no ocurre lo mismo
-    }
+
 
     return 0;
 }
